@@ -1,12 +1,11 @@
 package com.datikaa
 
 import com.datikaa.routes.user
-import com.ryanharter.ktor.moshi.moshi
-import com.squareup.moshi.Moshi
 import io.ktor.application.*
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
+import io.ktor.gson.gson
 import io.ktor.locations.Locations
 import io.ktor.request.path
 import io.ktor.routing.routing
@@ -30,8 +29,7 @@ fun Application.module(testing: Boolean = false) {
     }
 
     install(ContentNegotiation) {
-        val moshi: Moshi = get()
-        moshi(moshi)
+        gson()
     }
 
     install(Locations)

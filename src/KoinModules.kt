@@ -1,9 +1,7 @@
 package com.datikaa
-import com.squareup.moshi.Moshi
 import org.koin.dsl.module
+import java.util.*
 
 val ktorModules = module {
-    single<Moshi> {
-        Moshi.Builder().build()
-    }
+
 }
