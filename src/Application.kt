@@ -1,5 +1,6 @@
 package com.datikaa
 
+import com.datikaa.routes.user
 import com.ryanharter.ktor.moshi.moshi
 import com.squareup.moshi.Moshi
 import io.ktor.application.*
@@ -8,6 +9,7 @@ import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
 import io.ktor.locations.Locations
 import io.ktor.request.path
+import io.ktor.routing.routing
 import org.koin.ktor.ext.Koin
 import org.koin.ktor.ext.get
 import org.slf4j.event.Level
@@ -33,6 +35,10 @@ fun Application.module(testing: Boolean = false) {
     }
 
     install(Locations)
+
+    routing {
+        user()
+    }
 
     DatabaseFactory.init()
 }
