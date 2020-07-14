@@ -33,4 +33,6 @@ fun Application.module(testing: Boolean = false) {
     }
 
     install(Locations)
+
+    DatabaseFactory.init()
 }
