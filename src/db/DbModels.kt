@@ -10,7 +10,7 @@ import org.jetbrains.exposed.sql.`java-time`.datetime
 
 object Users : Table() {
     val id = integer("id").autoIncrement()
-    val email = varchar("email", 255)
+    val email = varchar("email", 255).uniqueIndex()
     val displayName = varchar("display_name", 255)
     val passwordHash = text("password_hash")
     val registrationDate = datetime("registration_date").defaultExpression(CurrentDateTime())
