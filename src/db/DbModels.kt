@@ -1,5 +1,9 @@
 package com.datikaa.db
 
+import com.datikaa.model.Comment
+import com.datikaa.model.Post
+import com.datikaa.model.User
+import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.`java-time`.CurrentDateTime
 import org.jetbrains.exposed.sql.`java-time`.datetime
@@ -39,3 +43,24 @@ object Tokens : Table() {
 
     override val primaryKey = PrimaryKey(token)
 }
+fun ResultRow.rowToUser() = User(
+    id = this[Users.id],
+    email = this[Users.email],
+    displayName = this[Users.displayName],
+    registrationDate = this[Users.registrationDate].toString()
+)
+
+fun ResultRow.rowToPost() = Post(
+    id = this[Posts.id],
+    userId = this[Posts.userId],
+    creationDate = this[Posts.creationDate].toString(),
+    message = this[Posts.message]
+)
+
+fun ResultRow.rowToComment() = Comment(
+    id = this[Comments.id],
+    userId = this[Comments.userId],
+    postId = this[Comments.postId],
+    creationDate = this[Comments.creationDate].toString(),
+    message = this[Comments.message]
+)
