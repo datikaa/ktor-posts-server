@@ -25,13 +25,13 @@ object DatabaseFactory {
             Users.insert {
                 it[email] = "teszt@test.te"
                 it[displayName] = "Teszt Name"
-                it[passwordHash] = "asdasdasdasdasd"
+                it[passwordHash] = "pwHash"
             }
 
             Users.insert {
                 it[email] = "teszt2@test.te"
                 it[displayName] = "Teszt Name 2"
-                it[passwordHash] = "asdasdasdasdasd"
+                it[passwordHash] = "pwHash"
             }
         }
     }
@@ -46,8 +46,6 @@ object DatabaseFactory {
         config.validate()
         return HikariDataSource(config)
     }
-
-
 }
 
 suspend fun <T> dbTransaction(block: suspend () -> T): T =
