@@ -43,12 +43,7 @@ object Tokens : Table() {
 
     override val primaryKey = PrimaryKey(token)
 }
-fun ResultRow.rowToUser() = User(
-    id = this[Users.id],
-    email = this[Users.email],
-    displayName = this[Users.displayName],
-    registrationDate = this[Users.registrationDate].toString()
-)
+
 
 fun ResultRow.rowToPost() = Post(
     id = this[Posts.id],
