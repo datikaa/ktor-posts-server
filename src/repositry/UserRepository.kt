@@ -9,11 +9,12 @@ import org.jetbrains.exposed.sql.*
 interface UserRepository {
     suspend fun getUsers(): List<User>
     suspend fun getUser(id: Int): User?
+    suspend fun getUser(email: String, password: String): User?
     suspend fun putUser(user: UserRegistration): User
     suspend fun deleteUser(id: Int)
 }
 
-class UserRepositoryImpl(): UserRepository {
+class UserRepositoryImpl : UserRepository {
 
     private fun ResultRow.rowToUser() = User(
         id = this[Users.id],
@@ -25,6 +26,13 @@ class UserRepositoryImpl(): UserRepository {
     override suspend fun getUser(id: Int): User? {
         return dbTransaction {
             return@dbTransaction Users.select { Users.id eq id }.firstOrNull()?.rowToUser()
+        }
+    }
+
+    override suspend fun getUser(email: String, password: String): User? {
+        return dbTransaction {
+            return@dbTransaction Users.select { Users.email.eq(email) and Users.passwordHash.eq(password) }
+                .firstOrNull()?.rowToUser()
         }
     }
 
@@ -42,7 +50,7 @@ class UserRepositoryImpl(): UserRepository {
                 it[passwordHash] = user.passwordHash
             } get Users.id
 
-           return@dbTransaction Users.select { Users.id eq newUserId }.first().rowToUser()
+            return@dbTransaction Users.select { Users.id eq newUserId }.first().rowToUser()
         }
     }
 

@@ -1,7 +1,12 @@
 package com.datikaa
 
+import com.datikaa.helpers.JwtConfig
+import com.datikaa.repositry.UserRepository
+import com.datikaa.routes.authentication
 import com.datikaa.routes.user
 import io.ktor.application.*
+import io.ktor.auth.Authentication
+import io.ktor.auth.jwt.jwt
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
@@ -13,7 +18,7 @@ import io.ktor.request.path
 import io.ktor.response.respondText
 import io.ktor.routing.routing
 import org.koin.ktor.ext.Koin
-import org.koin.ktor.ext.get
+import org.koin.ktor.ext.inject
 import org.slf4j.event.Level
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -32,6 +37,18 @@ fun Application.module(testing: Boolean = false) {
         filter { call -> call.request.path().startsWith("/") }
     }
 
+    install(Authentication) {
+        jwt {
+            verifier(JwtConfig.verifier)
+            realm = "com.datikaa"
+            validate {
+                val userRepository: UserRepository by inject()
+                val id = it.payload.getClaim("id").asInt()
+                return@validate userRepository.getUser(id)
+            }
+        }
+    }
+
     install(Koin) {
         modules(ktorModules)
     }
@@ -43,6 +60,7 @@ fun Application.module(testing: Boolean = false) {
     install(Locations)
 
     routing {
+        authentication()
         user()
     }
 

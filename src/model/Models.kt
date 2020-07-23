@@ -15,6 +15,11 @@ data class UserRegistration(
     val passwordHash: String
 )
 
+data class UserAuthentication(
+    val email: String,
+    val passwordHash: String
+)
+
 data class Post(
     val id: Int,
     val userId: Int,
