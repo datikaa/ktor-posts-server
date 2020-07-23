@@ -15,7 +15,7 @@ import org.koin.ktor.ext.inject
 class UserListRoute
 
 @KtorExperimentalLocationsAPI
-@Location("v1/user/")
+@Location("v1/user")
 data class UserGetRoute(val id: Int)
 
 @KtorExperimentalLocationsAPI

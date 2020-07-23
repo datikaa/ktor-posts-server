@@ -43,8 +43,9 @@ fun Application.module(testing: Boolean = false) {
             realm = "com.datikaa"
             validate {
                 val userRepository: UserRepository by inject()
-                val id = it.payload.getClaim("id").asInt()
-                return@validate userRepository.getUser(id)
+                val email = it.payload.getClaim("email").asString()
+                val password = it.payload.getClaim("password").asString()
+                return@validate userRepository.getUser(email, password)
             }
         }
     }

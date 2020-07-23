@@ -23,8 +23,8 @@ object JwtConfig : KoinComponent {
         return JWT.create()
             .withSubject("Authentication")
             .withIssuer(issuer)
-            .withClaim("name", userRegistration.email)
-            .withClaim("pw", userRegistration.passwordHash)
+            .withClaim("email", userRegistration.email)
+            .withClaim("password", userRegistration.passwordHash)
             .withExpiresAt(getExpiration())
             .sign(algorithm)
     }
