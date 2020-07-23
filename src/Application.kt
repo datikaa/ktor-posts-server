@@ -3,6 +3,7 @@ package com.datikaa
 import com.datikaa.helpers.JwtConfig
 import com.datikaa.repositry.UserRepository
 import com.datikaa.routes.authentication
+import com.datikaa.routes.posts
 import com.datikaa.routes.user
 import io.ktor.application.*
 import io.ktor.auth.Authentication
@@ -63,6 +64,7 @@ fun Application.module(testing: Boolean = false) {
     routing {
         authentication()
         user()
+        posts()
     }
 
     DatabaseFactory.init()

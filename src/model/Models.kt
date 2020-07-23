@@ -34,3 +34,5 @@ data class Comment(
     val creationDate: String,
     val message: String
 )
+
+data class NewPost(val message: String)
