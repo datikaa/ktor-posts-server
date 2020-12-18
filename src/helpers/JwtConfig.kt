@@ -4,10 +4,9 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
 import com.datikaa.model.UserRegistration
-import org.koin.core.KoinComponent
 import java.util.*
 
-object JwtConfig : KoinComponent {
+object JwtConfig {
 
     private const val secret = "secretOfLifeIs42"
     private const val issuer = "com.datikaa"
